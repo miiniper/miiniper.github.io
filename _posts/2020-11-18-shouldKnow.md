@@ -2,7 +2,7 @@
 layout:     post
 title:      随便写写
 subtitle:   搬砖三年有感
-date:       2019-12-19
+date:       2020-11-18
 author:     miiniper
 header-img: img/bg-mysql.jpg
 catalog: true
@@ -192,8 +192,6 @@ ACK —— 确认，使得确认号有效。
  FIN —— 该报文段的发送方已经结束向对方发送数据
 
 三次握手
-
-![](https://github.com/miiniper/miiniper.github.io/raw/master/img/oracle/oracle1.png)
 
 <img src="https://github.com/miiniper/miiniper.github.io/raw/master/img/image-20201117171530995.png" alt="image-20201117171530995" style="zoom:60%;" />
 

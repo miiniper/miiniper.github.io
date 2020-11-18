@@ -1,18 +1,18 @@
 # Site settings
-title: HanLei's Blog
-SEOTitle: hanlei | BY Blog
+title: miiniper's Blog
+SEOTitle: miiniper | BY Blog
 header-img: img/post-bg-desk.jpg
 email: miiniper@gmail.com
 description: "Hello everyone."
-keyword: "BY, BY Blog, hanlei, "
-url: "http://miniper.github.io"          # your host, for absolute URL
+keyword: "BY, BY Blog, miiniper, "
+url: "http://miiniper.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/miniper/miniper.github.io.git" # you code repository
+github_repo: "https://github.com/miiniper/miiniper.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "  happy !"
-sidebar-avatar: /img/hanlei1.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/miniper1.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
