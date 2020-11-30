@@ -289,16 +289,49 @@ post 发布资源（提交表单） 对应写
 
 
 ## k8s
+[官方文档](https://kubernetes.io/zh/docs/concepts/overview/components/)
+### 基础
+master：
+kube-apiserver
+etcd
+kube-scheduler
+kube-controller-manager
+cloud-controller-manager
+
+node：
+kubelet
+kube-proxy
+Container Runtime 
+
+周边：
+dns
+web
+log
+监控
 
 ### cni,csi,cri
 
 ### 监控
 
+[参考](https://mp.weixin.qq.com/s/P3F1grbVpb7LF2hcxYNOcg)
+
+#### api-server
+
+ 监控数据从[/metrics](https://github.com/kubernetes/apiserver/blob/master/pkg/endpoints/metrics/metrics.go)获取，三个维度监控
+
+1. 延迟
+2. 通讯量
+3. 错误
+4. 饱和度
+
 ### etcd
+#### 监控方面
+1. 延迟
+2. 吞吐量
 
 ### 大集群瓶颈
 
-### 调度算法
+### 调度
 
 ### CICD
 
@@ -321,7 +354,8 @@ todo
 做到dev不用登录服务器，从开发，上线，测试，发布等。以后得目标要做到ops也尽可能的不登录服务器。排查问题完全可以在各个平台上操作。除非是本机的系统问题。
 需要有扎实基础知识，排障能力，应急定位能力。
 平台完善后sre甚至可以不在了解业务逻辑和链路情况。完全靠监控即可。
-对容器的一些看法，不易过大，不然就失去了容器的意义，能做到单进程的为最优。其他的完全可以在容器外部做。例如监控数据，日志等。举例，golang程序打包一个from image，RUN在一个from image。。不赞同定制化的镜像，把监控日志收集和应用打在同一个镜像中，同样是消耗集群资源，但是这样做会更多的抢占进程资源。
+对容器的一些看法，不易过大，不然就失去了容器的意义，能做到单进程的为最优。其他的完全可以在容器外部做。例如监控数据，日志等。
+举例，golang程序打包一个from image，RUN在一个from image。。不赞同定制化的镜像，把监控日志收集和应用打在同一个镜像中，同样是消耗集群资源，但是这样做会更多的抢占进程资源。
 发现问题，系统分析能力。
 下一步就可以学习了解更深层次的原理，实现良性循环。
 可能存在的痛点，数据存储，底层问题尤其是涉及到内核问题，网络问题，数据一致性。
