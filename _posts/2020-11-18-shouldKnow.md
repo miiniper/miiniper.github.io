@@ -309,7 +309,36 @@ web
 log
 监控
 
+#### 常见问题
+1. 为什么pod是k8s最小调度单位而不是container？
+- 多个容器在同一个pod中可以同时调度到多node集群的同一节点；容器通讯更快；共享挂载的文件系统。
+2. 多container 的pod模式
+- sidecar ：例如日志收集模式。
+- Ambassador ：例如数据库代理
+- Adapter ：处理一些标准化的事务，格式化log等
+
 ### cni,csi,cri
+#### flannel
+1.使集群中的不同Node主机创建的Docker容器都具有全集群唯一的虚拟IP地址。
+
+2.建立一个覆盖网络（overlay network），通过这个覆盖网络，将数据包原封不动的传递到目标容器。覆盖网络是建立在另一个网络之上并由其基础设施支持的虚拟网络。覆盖网络通过将一个分组封装在另一个分组内来将网络服务与底层基础设施分离。在将封装的数据包转发到端点后，将其解封装。
+
+3.创建一个新的虚拟网卡flannel0接收docker网桥的数据，通过维护路由表，对接收到的数据进行封包和转发（vxlan）。
+
+4.etcd保证了所有node上flanned所看到的配置是一致的。同时每个node上的flanned监听etcd上的数据变化，实时感知集群中node的变化
+
+默认udp跨机器pod通信：pod-> vethh0->docker0->flannel0->eth0->flannel0->docker0->veth0->pod
+##### 通讯方式
+1. host gateway ：直接添加本地路由。限制：要求所有的主机都在一个子网内，即二层可达，否则就无法将目的主机当做网关，直接路由
+2. udp ： pod-> vethh0->docker0->flannel0->eth0->eth0->flannel0->docker0->veth0->pod
+3. vxlan ：会存主机的mac地址
+
+#### calico
+##### 通讯方式
+1. ipip ：pod -> tunl0->eth0-eth0 -> tunl0->pod
+2. bgp : pod -> eth0->eth0 -> pod 
+
+
 
 ### 监控
 
