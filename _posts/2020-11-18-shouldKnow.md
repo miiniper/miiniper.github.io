@@ -25,7 +25,10 @@ tags:
 
 #### cpu
 
+
+
 ```
+cat /proc/stat
 user	用户态时间
 nice	用户态时间(低优先级，nice>0)
 system	内核态时间
@@ -34,7 +37,7 @@ iowait	I/O等待时间（不可靠）
 irq	硬中断
 softirq	软中断
 steal 虚拟cpu时间
-cat /proc/stat
+
 //    user, nice ,system idle, iowait ,irq ,softirq,steal,guest,guest_nice 
 cpu  759116721 3449445 1149196339 101780263681 288147799 0 623024 205246155 0 0
 
