@@ -7,10 +7,8 @@ author:     miiniper
 header-img: img/bg-mysql.jpg
 catalog: true
 tags:
-    - k8s
-    - linux
     - 总结
-
+    - 运维
 ---
 
 [TOC]
@@ -86,7 +84,7 @@ linux内核提供的资源隔离方案，Namespaces之间的资源相互独立�
 [官方说明](https://man7.org/linux/man-pages/man7/namespaces.7.html)
 
 - cgroup  隔离cgroup
-- IPC。   隔离进程通信
+- IPC    隔离进程通信
 - Network  隔离网络资源
 - mount  隔离挂载点
 - PID   隔离进程id
@@ -174,8 +172,32 @@ FROM golang AS build-env
 FROM alpine
 ...
 COPY --from=build-env /root/pkg /
+
+好处：
+1提高分发效率
+2节约资源
 ```
 
+### PaaS应用
+#### mysql
+关系型数据库；主备模式；B+树设计模式
+1. 主从同步原理：日志同步原理3部分：
+ - master将log写入binlog文件
+ - slave主动拉去master binlog写入本地relaylog （slave_io线程）
+ - sql i/o线程读取relaylog将数据写入slave数据库（slave_sql线程）
+2. 索引设计模式：
+#### mongodb
+非关系型数据库，副本分片模式基于raft协议；B树设计模式
+#### elasticsearch
+#### redis
+1. 4.0版本前单线程，4.0后支持多线程；
+2. 单线程处理能力100w/s，数据在内存，速度快；使用i/o多路复用；可维护性；单线程也可并发；瓶颈不在cpu，在网络io；
+3. 多线程：处理主线程以外的操作如：unlink，async， flashdb等；cpu切换线程也需要开销；
+4. 不开aof，单线程redis够用。
+5. aof是牺牲性能保存数据，数据重要开启。每次redis操作都需要记录log。
+6. rdb是数据快照，性能高，但是未快照期间数据没法保存。数据一般mem<50%；
+#### kafka，rocketmq，rabbitmq 
+1. 结构：broker，topic，partition, consumer,producter,consumer group ,leader,follower。
 
 
 ## 网络
@@ -368,7 +390,10 @@ log
 ### CICD
 
 ### 源码
-
+#### 学习go设计模式
+[参考](https://github.com/Junedayday/code_reading)
+1. factory模式
+2. visitor 模式
 ### service mesh
 
 todo
