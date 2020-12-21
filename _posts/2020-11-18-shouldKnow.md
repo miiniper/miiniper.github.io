@@ -181,23 +181,26 @@ COPY --from=build-env /root/pkg /
 ### PaaS应用
 #### mysql
 关系型数据库；主备模式；B+树设计模式
-1. 主从同步原理：日志同步原理3部分：
- - master将log写入binlog文件
- - slave主动拉去master binlog写入本地relaylog （slave_io线程）
- - sql i/o线程读取relaylog将数据写入slave数据库（slave_sql线程）
-2. 索引设计模式：
+- 主从同步原理：日志同步原理3部分：
+1. master将log写入binlog文件
+2. slave主动拉去master binlog写入本地relaylog （slave_io线程）
+3. sql i/o线程读取relaylog将数据写入slave数据库（slave_sql线程）
+- 索引设计模式：
+两种：B+和hash
 #### mongodb
 非关系型数据库，副本分片模式基于raft协议；B树设计模式
+1. 副本数据同步oplog，主写入local库（log按顺序执行）
+2. 副本分片，mongos，config集群。
 #### elasticsearch
 #### redis
-1. 4.0版本前单线程，4.0后支持多线程；
-2. 单线程处理能力100w/s，数据在内存，速度快；使用i/o多路复用；可维护性；单线程也可并发；瓶颈不在cpu，在网络io；
-3. 多线程：处理主线程以外的操作如：unlink，async， flashdb等；cpu切换线程也需要开销；
-4. 不开aof，单线程redis够用。
-5. aof是牺牲性能保存数据，数据重要开启。每次redis操作都需要记录log。
-6. rdb是数据快照，性能高，但是未快照期间数据没法保存。数据一般mem<50%；
+- 4.0版本前单线程，4.0后支持多线程；
+- 单线程处理能力100w/s，数据在内存，速度快；使用i/o多路复用；可维护性；单线程也可并发；瓶颈不在cpu，在网络io；
+- 多线程：处理主线程以外的操作如：unlink，async， flashdb等；cpu切换线程也需要开销；
+- 不开aof，单线程redis够用。
+- aof是牺牲性能保存数据，数据重要开启。每次redis操作都需要记录log。
+- rdb是数据快照，性能高，但是未快照期间数据没法保存。数据一般mem<50%；
 #### kafka，rocketmq，rabbitmq 
-1. 结构：broker，topic，partition, consumer,producter,consumer group ,leader,follower。
+- 结构：broker，topic，partition, consumer,producter,consumer group ,leader,follower。
 
 
 ## 网络
@@ -236,6 +239,9 @@ ACK —— 确认，使得确认号有效。
 
 ### http
 
+#### http版本区别
+- http1.1 ：长链接，断点续传，管道化
+- http2.0 ：二进制分帧，多路复用，头部压缩
 #### http status code
 
 [说明](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
@@ -343,6 +349,10 @@ log
 - Adapter ：处理一些标准化的事务，格式化log等
 
 ### cni,csi,cri
+相关文章：
+
+[pod get ip](https://medium.com/cloud-belivers/how-kubernetes-pod-obtains-ip-address-3982ac9697b1)
+
 #### flannel
 1.使集群中的不同Node主机创建的Docker容器都具有全集群唯一的虚拟IP地址。
 
