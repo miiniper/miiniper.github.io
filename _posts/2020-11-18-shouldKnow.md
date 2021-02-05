@@ -347,6 +347,14 @@ log
 - sidecar ：例如日志收集模式。
 - Ambassador ：例如数据库代理
 - Adapter ：处理一些标准化的事务，格式化log等
+3. pod创建过程 [参考](https://fuckcloudnative.io/posts/what-happens-when-k8s/)
+- kubectl 验证：语法合法，config获取：3个途径：env，kubeconfig参数，home/.kube/config，构造http请求发给apiserver
+- apiserver 三步：认证，授权，准入控制；序列化后写入etcd
+- etcd 写入相应的资源
+- controller 对比当前值和期望值 deployment通过replicsets控制
+- scheduler ：预选策略 打分 分高获得pod并更新etcd
+- kubelet 初始化，创建puase容器（提供namespace资源） 同时cni提供网络服务提供ip，dns；启动init容器（拉去镜像，写入元数据标签）
+
 
 ### cni,csi,cri
 相关文章：
@@ -373,7 +381,7 @@ log
 1. ipip ：pod -> tunl0->eth0-eth0 -> tunl0->pod
 2. bgp : pod -> eth0->eth0 -> pod 
 
-
+#### ceph
 
 ### 监控
 
